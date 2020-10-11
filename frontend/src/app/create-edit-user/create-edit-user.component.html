@@ -1,0 +1,76 @@
+<div class="content">
+    <mat-card>
+
+        <form [formGroup]="registerForm">
+            <mat-card-header>
+                <mat-card-title>
+                    <div *ngIf="option; then thenblock; else elseblock"></div>
+                    <ng-template #thenblock>
+                        <span class="mat-display-1">Create User</span>
+                    </ng-template>
+
+
+                    <ng-template #elseblock>
+                        <span class="mat-display-1">Edit User</span>
+                    </ng-template>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <ul type="none">
+                    <li>
+                        <mat-form-field class="form" appearance="outline">
+                            <mat-label>Full Name</mat-label>
+                            <input type="text" matInput formControlName="name" />
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field class="form" appearance="outline">
+                            <mat-label>Email Address</mat-label>
+                            <input type="email" matInput formControlName="email" />
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field class="form" appearance="outline">
+                            <mat-label>Phone Number</mat-label>
+                            <input type="tel" matInput formControlName="phone" />
+                        </mat-form-field>
+                    </li>
+                    <li *ngIf="option">
+
+                        <mat-form-field class="form" appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" />
+                            <mat-icon (click)="hide = !hide" matSuffix>{{                                   hide ? "visibility_off" : "visibility"
+                                                                }}</mat-icon>
+                        </mat-form-field>
+
+
+
+
+                    </li>
+
+
+                </ul>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <div *ngIf="option; then thenblock1; else elseblock1"></div>
+                <ng-template #thenblock1>
+                    <button mat-stroked-button [disabled]="!registerForm.valid" class="addBtn" (click)="create()">Create
+                        User</button>
+                    <button mat-stroked-button class="cancel" (click)="cancel()">Cancel</button>
+                </ng-template>
+
+
+                <ng-template #elseblock1>
+                    <button mat-stroked-button [disabled]="!registerForm.valid" class="addBtn" (click)="edit()">
+                        Update</button>
+                    <button mat-stroked-button class="cancel" (click)="cancel()">Cancel</button>
+                </ng-template>
+
+            </mat-card-actions>
+
+        </form>
+    </mat-card>
+</div>

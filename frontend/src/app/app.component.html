@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <header>
+    <mat-toolbar>
+      <span class="space"></span>
+      <a routerLink="/" mat-button *ngIf="!service.loggedIn()">Login</a>
+      <a routerLink="/" mat-button *ngIf="service.loggedIn()" (click)="service.loggedOut()">Logout</a>
+    </mat-toolbar>
+  </header>
+</div>
+<router-outlet></router-outlet>

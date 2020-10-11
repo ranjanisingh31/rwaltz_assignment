@@ -1,0 +1,19 @@
+.space{
+    flex: 1 1 auto;
+}
+mat-toolbar{
+    background:darkslategray;
+}
+a{
+    margin: 0px 10px;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color:white;
+    text-shadow: 1px 1px 2px black;
+    background: transparent;
+}
+a:hover{
+    background-color: rgba(0,0,0,0.1);
+
+}

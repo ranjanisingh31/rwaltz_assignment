@@ -1,0 +1,68 @@
+h3{
+    text-align: center;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    font-weight: bolder;
+    text-shadow: 1px 1px 1px gray;
+    text-transform: uppercase;
+    padding: 20px;
+}
+
+mat-grid-list{
+    margin: 50px;
+}
+.title{
+
+    width: 100%;
+    border: 1px solid gray;
+    text-shadow: none;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: darkslategray;
+    box-shadow: 1px 1px 1px 1px darkslategray;
+}
+
+.btn{
+    background-color: darkslategray;
+    color: white;
+    padding: 10px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    font-size: 13px;
+    margin: 0px 0px 15px 15px;
+    width: 100%;
+}
+
+.editbtn{
+    background-color:dodgerblue; 
+    color: white;
+}
+.deletebtn{
+    background-color: rgb(240,10,50); 
+    color: white;
+    
+}
+.editbtn,.deletebtn{
+    letter-spacing: 1.5px;
+    font-size: 13px;
+text-shadow: 2px 1px 2px black;
+width: 45%;
+}
+
+
+mat-card{
+    padding: 20px;
+}
+.card-wrapper{
+    width:100%;
+    margin: 10px;
+}
+ul{
+    font-size: 15px;
+}
+ul li{
+   margin-bottom: 10px;
+}
+.ttl{
+    font-weight: 500;
+}

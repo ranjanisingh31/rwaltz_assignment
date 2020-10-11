@@ -1,0 +1,46 @@
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+mat-card
+{
+    margin:70px;
+    width:35%;
+    box-shadow: 2px 2px 5px 2px darkgrey !important;
+
+}
+mat-card-content{
+    padding: 0px 30px;
+}
+mat-card-header{
+    text-align:center;
+    display: block;
+    padding-bottom: 30px;
+}
+mat-card-actions{
+    text-align: center;
+}
+.loginBtn{
+    font-size: 16px;
+    width: 20%;
+    color:darkslategray;
+    background: white;
+}
+.loginBtn:hover{
+    background:dodgerblue;
+    color:white;
+
+}
+mat-card-actions li{
+    padding-bottom: 10px;
+}
+mat-icon{
+    cursor: pointer;
+
+}
+mat-form-field
+{
+    width: 100%;
+}

@@ -1,0 +1,62 @@
+<div class="content">
+    <mat-card>
+
+        <form [formGroup]="registerForm">
+            <mat-card-header>
+                <mat-card-title>
+                    <span class="mat-display-1">User Registration</span></mat-card-title>
+
+            </mat-card-header>
+            <mat-card-content>
+
+                <ul type="none">
+                    <li>
+                        <mat-form-field class="form" appearance="outline">
+                            <mat-label>Full Name</mat-label>
+                            <input type="text" matInput formControlName="name" />
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field class="form" appearance="outline">
+                            <mat-label>Email Address</mat-label>
+                            <input type="email" matInput formControlName="email" />
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field class="form" appearance="outline">
+                            <mat-label>Phone Number</mat-label>
+                            <input type="tel" matInput formControlName="phone" />
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field class="form" appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" />
+                            <mat-icon (click)="hide = !hide" matSuffix>{{
+                                      hide ? "visibility_off" : "visibility"
+                                    }}</mat-icon>
+                        </mat-form-field>
+
+                    </li>
+
+
+                </ul>
+
+            </mat-card-content>
+            <mat-card-actions>
+
+                <ul type="none">
+                    <li>
+                        <button mat-stroked-button [disabled]="!registerForm.valid" class="addBtn" (click)="add()">
+                            Register
+                        </button></li>
+                    <li>
+                        <small>Already have login and password?&nbsp;<a style="cursor: pointer; color: darkred;"
+                                (click)="openLogin()">Sign-in</a></small>
+                    </li>
+                </ul>
+            </mat-card-actions>
+
+        </form>
+    </mat-card>
+</div>

@@ -1,0 +1,48 @@
+<div class="content">
+    <mat-card>
+
+        <form [formGroup]="loginForm">
+            <mat-card-header>
+                <mat-card-title>
+                    <span class="mat-display-1">Login</span></mat-card-title>
+
+            </mat-card-header>
+            <mat-card-content>
+
+                <ul type="none">
+                    <li>
+                        <mat-form-field class="form" appearance="outline">
+                            <mat-label>Email Id</mat-label>
+                            <input type="email" matInput formControlName="email" />
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field class="form" appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" />
+                            <mat-icon (click)="hide = !hide" matSuffix>{{
+                                      hide ? "visibility_off" : "visibility"
+                                    }}</mat-icon>
+                        </mat-form-field>
+
+                    </li>
+                </ul>
+
+            </mat-card-content>
+            <mat-card-actions>
+
+                <ul type="none">
+                    <li>
+                        <button mat-stroked-button [disabled]="!loginForm.valid" class="loginBtn" (click)="login()">
+                            Sign-in
+                        </button></li>
+                    <li>
+                        <small class="link">Are you a new user? &nbsp;<a style="cursor: pointer; color: darkred;"
+                                (click)="openRegister()">Register</a></small>
+                    </li>
+                </ul>
+            </mat-card-actions>
+
+        </form>
+    </mat-card>
+</div>
