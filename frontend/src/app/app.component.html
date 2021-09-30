@@ -1,9 +1,21 @@
 <div class="wrapper">
   <header>
     <mat-toolbar>
+      <a routerLink="/profile" mat-button>
+        <mat-icon>stars</mat-icon>
+      </a>
       <span class="space"></span>
       <a routerLink="/" mat-button *ngIf="!service.loggedIn()">Login</a>
-      <a routerLink="/" mat-button *ngIf="service.loggedIn()" (click)="service.loggedOut()">Logout</a>
+      <div class="extra-nav" *ngIf="service.loggedIn()" style="display: flex;">
+
+        <img *ngIf="img" class="imageSize" src="data:image/jpeg;base64,{{img}}" alt="img" />
+        <img alt="" src="../assets/pic2.png" *ngIf="!img" class="imageSize">
+        <a routerLink="/profile/user" mat-button mat-button style="text-transform: capitalize;text-decoration: none;">
+          {{data.name}}
+        </a>
+
+        <a routerLink="/" mat-button *ngIf="service.loggedIn()" (click)="service.loggedOut()">Logout</a>
+      </div>
     </mat-toolbar>
   </header>
 </div>

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const signin = require("../model/register");
+const imageToBase64 = require('image-to-base64');
 
 router.get("/", (req, res) => {
     res.send("from API route");
@@ -83,6 +84,40 @@ router.get('/v1/users', verifyToken, (req, res) => {
     }
     );
 });
+
+//get Userby id
+router.get('/v1/user/:id', verifyToken, (req, res) => {
+
+    signin.find({ _id: req.params.id }, (error, data) => {
+        if (error) {
+            res.status(500).json({ message: "Internal Server Error." });
+        } else {
+            res.status(200).json(data[0]);
+        }
+    }
+    );
+});
+
+//get img base64
+router.get('/v1/get/user/img/:id', verifyToken, (req, res) => {
+
+    signin.find({ _id: req.params.id }, (error, data) => {
+        if (error) {
+
+            res.status(500).json({ message: "Internal Server Error." });
+        } else {
+            imageToBase64(data[0].img_url).then((response) => {
+                res.status(200).json(response);
+            }).catch((error) => {
+                res.json({ message: "Error in getting Img." });
+            })
+        }
+    }
+    );
+
+});
+
+
 //update user details
 router.put('/v1/users/:id', verifyToken, (req, res) => {
     let id = req.params.id;
@@ -93,7 +128,11 @@ router.put('/v1/users/:id', verifyToken, (req, res) => {
         $set: {
             "name": userData.name,
             "email": userData.email,
-            "phone": userData.phone
+            "phone": userData.phone,
+            "address": userData.address,
+            "hobbies": userData.hobbies,
+            "gender": userData.gender,
+            "password": userData.password
         }
     }, (error, data) => {
         if (error) {
@@ -110,34 +149,44 @@ router.put('/v1/users/:id', verifyToken, (req, res) => {
     }
     );
 });
-//delete user details
-router.delete('/v1/users/:id', verifyToken, (req, res) => {
+
+//upload file
+router.put('/v1/user/img/:id', verifyToken, (req, res) => {
     let id = req.params.id;
-    signin.findOne({
-        _id: id
-    }, (error, data) => {
-        if (error) {
-            res.status(500).json({ message: "Internal Server Error." });
-        } else {
-            if (!data) {
-                res.status(401).json({ message: "Invalid user." });
-            } else {
-                signin.deleteOne({
-                    _id: id
-                }, (error, data1) => {
-                    if (error) {
-                        res.status(500).json({ message: "Internal Server Error." });
+    let data = req.files;
+    let file = data.file;
+    let file_name = file.name;
+    let path = "./image/" + file_name;
+    file.mv(path, function (err) {
+        if (err) {
+            res.json({ message: "Error in Uploading Img." });
+        }
+        else {
+            signin.updateOne({
+                _id: id
+            }, {
+                $set: {
+                    "img_url": path
+                }
+            }, (error, data) => {
+                if (error) {
+                    res.status(500).json({ message: "Internal Server Error." });
+                } else {
+                    if (!data) {
+                        res.status(401).json({ message: "Invalid email." });
                     } else {
                         res.status(200).send({
-                            message: `Deleted ${data.name} User Details.`
+                            message: "Uploaded Image."
                         });
                     }
-                });
+                }
             }
+            );
         }
-    }
-    );
+    })
+
 });
+
 
 //middleware to verify token
 function verifyToken(req, res, next) {

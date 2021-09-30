@@ -7,9 +7,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { CreateEditUserComponent } from './create-edit-user/create-edit-user.component';
 
 const routes: Routes = [{ path: 'login', component: LoginComponent },
-{ path: 'register', component: RegisterComponent }, { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }, { path: 'profile/user', component: CreateEditUserComponent, canActivate: [AuthGuard] }, {
-  path: "**", redirectTo: "/profile"
-}];
+{ path: 'register', component: RegisterComponent },
+{ path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+{ path: 'profile/user', component: CreateEditUserComponent, canActivate: [AuthGuard] },
+{ path: "**", redirectTo: "/login" }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

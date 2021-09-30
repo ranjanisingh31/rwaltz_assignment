@@ -7,5 +7,9 @@ export interface user {
     phone: number;
     _id: string;
     created_by: string;
+    address: String,
+    hobbies: String,
+    gender: String,
+    img_url: String
 
 }

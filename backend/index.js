@@ -4,6 +4,8 @@ const body = require("body-parser");
 const connectDB = require('./config/database');
 const app = express();
 const api = require("./routes/api.js");
+var fileupload = require("express-fileupload");
+app.use(fileupload());
 app.use(cors());
 app.use(body.json());
 

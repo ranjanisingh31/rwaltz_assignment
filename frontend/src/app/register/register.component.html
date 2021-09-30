@@ -4,7 +4,8 @@
         <form [formGroup]="registerForm">
             <mat-card-header>
                 <mat-card-title>
-                    <span class="mat-display-1">User Registration</span></mat-card-title>
+                    <span class="mat-display-1">User Registration</span>
+                </mat-card-title>
 
             </mat-card-header>
             <mat-card-content>
@@ -12,30 +13,78 @@
                 <ul type="none">
                     <li>
                         <mat-form-field class="form" appearance="outline">
-                            <mat-label>Full Name</mat-label>
+                            <mat-label>Name</mat-label>
                             <input type="text" matInput formControlName="name" />
                         </mat-form-field>
+                        <div *ngIf="registerForm.controls.name.invalid && (registerForm.controls.name.dirty || registerForm.controls.name.touched)"
+                            class="alert alert-danger" style="font-size: 12px;padding: .5rem 1.25rem;">
+                            <div *ngIf="registerForm.controls.name.errors?.required">
+                                Name is required.
+                            </div>
+                        </div>
                     </li>
                     <li>
                         <mat-form-field class="form" appearance="outline">
                             <mat-label>Email Address</mat-label>
                             <input type="email" matInput formControlName="email" />
+
                         </mat-form-field>
+                        <div *ngIf="registerForm.controls.email.invalid && (registerForm.controls.email.dirty || registerForm.controls.email.touched)"
+                            class="alert alert-danger"
+                            style="font-size: 12px;padding: .5rem 1.25rem;margin-bottom: 0px;">
+                            <div *ngIf="registerForm.controls.email.errors?.required">
+                                Email is required.
+                            </div>
+                            <div *ngIf="registerForm.controls.email.invalid">
+                                Email is invalid.
+                            </div>
+                            <div *ngIf="registerForm.controls.email.errors?.maxlength">
+                                Email must be at most 60 characters
+                                long.
+                            </div>
+                        </div>
                     </li>
                     <li>
                         <mat-form-field class="form" appearance="outline">
                             <mat-label>Phone Number</mat-label>
-                            <input type="tel" matInput formControlName="phone" />
+                            <input type="number" matInput formControlName="phone" />
                         </mat-form-field>
+                        <div *ngIf="registerForm.controls.phone.invalid && (registerForm.controls.phone.dirty || registerForm.controls.phone.touched)"
+                            class="alert alert-danger" style="font-size: 12px;padding: .5rem 1.25rem;">
+                            <div *ngIf="registerForm.controls.phone.invalid">
+                                Phone No. is invalid.
+                            </div>
+                            <div *ngIf="registerForm.controls.phone.errors?.max">
+                                Phone No. must be at most 10 characters
+                                long.
+                            </div>
+
+                        </div>
                     </li>
                     <li>
                         <mat-form-field class="form" appearance="outline">
                             <mat-label>Password</mat-label>
                             <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" />
                             <mat-icon (click)="hide = !hide" matSuffix>{{
-                                      hide ? "visibility_off" : "visibility"
-                                    }}</mat-icon>
+                                hide ? "visibility_off" : "visibility"
+                                }}</mat-icon>
+
                         </mat-form-field>
+                        <div *ngIf="registerForm.controls.password.invalid && (registerForm.controls.password.dirty || registerForm.controls.password.touched)"
+                            class="alert alert-danger" style="font-size: 12px;padding: .5rem 1.25rem;">
+                            <div *ngIf="registerForm.controls.password.errors?.required">
+                                Password is required.
+                            </div>
+                            <div *ngIf="registerForm.controls.password.errors?.pattern">
+                                Password must has at least 8 characters that include atleast
+                                1 uppercase character, 1 lowercase character, 1 number, and
+                                1 special character in(#?!@$%^&*-).
+                            </div>
+                            <div *ngIf="registerForm.controls.password.errors?.maxlength">
+                                Password must be at most 20 characters
+                                long.
+                            </div>
+                        </div>
 
                     </li>
 
@@ -47,9 +96,11 @@
 
                 <ul type="none">
                     <li>
-                        <button mat-stroked-button [disabled]="!registerForm.valid" class="addBtn" (click)="add()">
+                        <button mat-stroked-button [disabled]="!registerForm.valid" class="addBtn" (click)="add()"
+                            [ngStyle]="{'cursor':(!registerForm.valid?'not-allowed':'pointer')}">
                             Register
-                        </button></li>
+                        </button>
+                    </li>
                     <li>
                         <small>Already have login and password?&nbsp;<a style="cursor: pointer; color: darkred;"
                                 (click)="openLogin()">Sign-in</a></small>

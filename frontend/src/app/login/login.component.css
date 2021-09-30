@@ -29,7 +29,7 @@ mat-card-actions{
     background: white;
 }
 .loginBtn:hover{
-    background:dodgerblue;
+    background:darkslategray;
     color:white;
 
 }
@@ -43,4 +43,15 @@ mat-icon{
 mat-form-field
 {
     width: 100%;
+}
+
+.alert,.alert-danger{
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem !important;
+    border: 1px solid transparent;
+    border-radius: .25rem;
 }

@@ -1,40 +1,6 @@
 <div class="wrapper">
     <h3 class="mat-display-1">Home Page</h3>
-    <mat-grid-list cols=4 rowHeight="100px">
-        <mat-grid-tile colspan=3>
-            <h3 class="title">List Of Users</h3>
-        </mat-grid-tile>
-        <mat-grid-tile><button mat-button class="btn" (click)="create()">
-                <mat-icon>add</mat-icon>Create New User
-            </button>
-        </mat-grid-tile>
-    </mat-grid-list>
 
-    <mat-grid-list cols="4" rowHeight="250px">
-        <mat-grid-tile *ngFor="let user of users">
-            <div class="card-wrapper">
-                <mat-card>
 
-                    <mat-card-content>
-                        <ul type=none>
-                            <li><span class="ttl">Name:</span><br>{{user.name}}</li>
-                            <li><span class="ttl">Email:</span><br>{{user.email}}</li>
-                            <li><span class="ttl">Phone Number:</span><br>{{user.phone}}</li>
-                        </ul>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <div style="text-align: center;width: 100%;">
-                            <button class="editbtn" mat-raised-button (click)="edit(user)">
-                                Edit
-                            </button>
-                            <button class="deletebtn" mat-raised-button (click)="delete(user)">
-                                Delete
-                            </button>
-                        </div>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-        </mat-grid-tile>
-    </mat-grid-list>
 
 </div>

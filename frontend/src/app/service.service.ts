@@ -11,7 +11,7 @@ export class ServiceService {
 
   constructor(private route: Router, private http: HttpClient) { }
   // private base_url = "http://localhost:3000/api/v1/";
-  private base_url = "https://biz2credit-assignment.herokuapp.com/api/v1/";
+  private base_url = "http://localhost:3000/api/v1/";
 
   public userName: string = '';
   public userEmail: string = '';
@@ -25,7 +25,7 @@ export class ServiceService {
   }
   createUser(userData): Observable<user> {
     var data = userData;
-    data['created_by'] = localStorage.getItem('id');
+    data['created_by'] = sessionStorage.getItem('id');
     console.log("data", data)
     return this.http.post<user>(this.base_url + "users", data);
   }
@@ -37,6 +37,10 @@ export class ServiceService {
   getAllUser(): Observable<user> {
     return this.http.get<user>(this.base_url + "users");
   }
+
+  getUser(id): Observable<user> {
+    return this.http.get<user>(this.base_url + "user/" + id);
+  }
   //update user
   updateUser(id, data): Observable<user> {
     return this.http.put<user>(this.base_url + "users/" + id, data);
@@ -47,18 +51,25 @@ export class ServiceService {
   }
   //returns boolean value, checks token exist or not
   loggedIn() {
-    return !!localStorage.getItem('token1');
+    return !!sessionStorage.getItem('token1');
 
   }
   //remove token & navigate to login page
   loggedOut() {
-    localStorage.removeItem("token1");
-    localStorage.removeItem("id");
+    sessionStorage.removeItem("token1");
+    sessionStorage.removeItem("id");
     this.route.navigate(['/login']);
   }
   //get stored token
   getToken() {
-    return localStorage.getItem('token1');
+    return sessionStorage.getItem('token1');
   }
 
+  uploadFile(data, id): Observable<user> {
+    return this.http.put<user>(this.base_url + "user/img/" + id, data);
+  }
+
+  getUserFile(id): Observable<user> {
+    return this.http.get<user>(this.base_url + "get/user/img/" + id);
+  }
 }

@@ -8,10 +8,11 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatGridListModule } from "@angular/material/grid-list";
+import { MatRadioModule } from '@angular/material/radio'
 
 
 
-const material = [MatToolbarModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatGridListModule];
+const material = [MatToolbarModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatGridListModule, MatRadioModule];
 
 @NgModule({
   declarations: [],

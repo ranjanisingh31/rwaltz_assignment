@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { ServiceService } from '../service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   //loginForm
   loginForm = this.fb.group({
-    email: ["", [Validators.required, Validators.email]],
+    email: ["", [Validators.required, Validators.email, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$')]],
     password: ["", [Validators.required]]
   });
 
@@ -25,19 +26,19 @@ export class LoginComponent implements OnInit {
   login() {
     this.service.loginUser(this.loginForm.value).subscribe(
       (res) => {
-        localStorage.setItem("token1", res.token);
-        localStorage.setItem("id", res._id);
-        alert(res.message);
-        this.route.navigate(['/profile']);
+        sessionStorage.setItem("token1", res.token);
+        sessionStorage.setItem("id", res._id);
+        this.success(res.message);
+
       },
       (err) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401) {
-            alert(err.error.message + " Enter registered Credentials.");
-            this.loginForm.reset();
+            this.error(err.error.message + " Enter registered Credentials.");
+
           } else {
-            alert(err.statusText + " Try Again!!!");
-            this.loginForm.reset();
+            this.error(err.statusText + " Try Again!!!");
+
           }
         }
 
@@ -49,6 +50,48 @@ export class LoginComponent implements OnInit {
     this.route.navigate(['/register']);
   }
   ngOnInit(): void {
+  }
+
+  success(msg) {
+    Swal.fire({
+      title: msg,
+      icon: 'success',
+      showCancelButton: false,
+      confirmButtonColor: '#4C96D7',
+      confirmButtonText: 'Ok',
+      allowOutsideClick: false,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // this.loginForm.reset();
+        this.route.navigate(['/profile']);
+      }
+    })
+  }
+  error(msg) {
+    Swal.fire({
+      title: msg,
+      icon: 'error',
+      showCancelButton: false,
+      confirmButtonColor: '#4C96D7',
+      confirmButtonText: 'Ok',
+      allowOutsideClick: false,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loginForm.reset();
+      }
+    })
   }
 
 }

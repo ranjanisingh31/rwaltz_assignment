@@ -4,48 +4,121 @@
         <form [formGroup]="registerForm">
             <mat-card-header>
                 <mat-card-title>
-                    <div *ngIf="option; then thenblock; else elseblock"></div>
-                    <ng-template #thenblock>
-                        <span class="mat-display-1">Create User</span>
-                    </ng-template>
-
-
-                    <ng-template #elseblock>
-                        <span class="mat-display-1">Edit User</span>
-                    </ng-template>
+                    <span class="mat-display-1">My Profile</span>
                 </mat-card-title>
+
             </mat-card-header>
             <mat-card-content>
 
                 <ul type="none">
                     <li>
                         <mat-form-field class="form" appearance="outline">
-                            <mat-label>Full Name</mat-label>
+                            <mat-label>Name</mat-label>
                             <input type="text" matInput formControlName="name" />
                         </mat-form-field>
+                        <div *ngIf="registerForm.controls.name.invalid && (registerForm.controls.name.dirty || registerForm.controls.name.touched)"
+                            class="alert alert-danger" style="font-size: 12px;padding: .5rem 1.25rem;">
+                            <div *ngIf="registerForm.controls.name.errors?.required">
+                                Name is required.
+                            </div>
+                        </div>
                     </li>
                     <li>
                         <mat-form-field class="form" appearance="outline">
                             <mat-label>Email Address</mat-label>
-                            <input type="email" matInput formControlName="email" />
+                            <input type="email" matInput formControlName="email" readonly style="color: gray;" />
+
                         </mat-form-field>
+
                     </li>
                     <li>
                         <mat-form-field class="form" appearance="outline">
                             <mat-label>Phone Number</mat-label>
-                            <input type="tel" matInput formControlName="phone" />
+                            <input type="number" matInput formControlName="phone" />
                         </mat-form-field>
-                    </li>
-                    <li *ngIf="option">
+                        <div *ngIf="registerForm.controls.phone.invalid && (registerForm.controls.phone.dirty || registerForm.controls.phone.touched)"
+                            class="alert alert-danger" style="font-size: 12px;padding: .5rem 1.25rem;">
+                            <div *ngIf="registerForm.controls.phone.invalid">
+                                Phone No. is invalid.
+                            </div>
+                            <div *ngIf="registerForm.controls.phone.errors?.max">
+                                Phone No. must be at most 10 characters
+                                long.
+                            </div>
 
+                        </div>
+                    </li>
+                    <li>
                         <mat-form-field class="form" appearance="outline">
                             <mat-label>Password</mat-label>
                             <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" />
-                            <mat-icon (click)="hide = !hide" matSuffix>{{                                   hide ? "visibility_off" : "visibility"
-                                                                }}</mat-icon>
+                            <mat-icon (click)="hide = !hide" matSuffix>{{
+                                hide ? "visibility_off" : "visibility"
+                                }}</mat-icon>
+
+                        </mat-form-field>
+                        <div *ngIf="registerForm.controls.password.invalid && (registerForm.controls.password.dirty || registerForm.controls.password.touched)"
+                            class="alert alert-danger" style="font-size: 12px;padding: .5rem 1.25rem;">
+                            <div *ngIf="registerForm.controls.password.errors?.required">
+                                Password is required.
+                            </div>
+                            <div *ngIf="registerForm.controls.password.errors?.pattern">
+                                Password must has at least 8 characters that include atleast
+                                1 uppercase character, 1 lowercase character, 1 number, and
+                                1 special character in(#?!@$%^&*-).
+                            </div>
+                            <div *ngIf="registerForm.controls.password.errors?.maxlength">
+                                Password must be at most 20 characters
+                                long.
+                            </div>
+                        </div>
+
+                    </li>
+
+                    <li>
+                        <mat-form-field class="form" appearance="outline">
+                            <mat-label>Address</mat-label>
+                            <textarea matInput formControlName="address"></textarea>
+
+
                         </mat-form-field>
 
+                    </li>
 
+                    <li style="padding: 10px;margin-bottom: 15px;">
+
+                        <mat-label>Gender</mat-label>
+                        <mat-radio-group aria-label="Select an option" formControlName="gender">
+                            <mat-radio-button value="male" style="margin-left:20px;">Male</mat-radio-button>
+                            <mat-radio-button value="female" style="margin-left:20px;">Female</mat-radio-button>
+                        </mat-radio-group>
+
+
+
+                        <!-- </mat-form-field> -->
+
+                    </li>
+                    <li>
+                        <mat-form-field class="form" appearance="outline">
+                            <mat-label>Hobbies</mat-label>
+                            <textarea matInput formControlName="hobbies"></textarea>
+
+
+                        </mat-form-field>
+
+                    </li>
+
+                    <li style="padding: 10px;margin-bottom: 15px;">
+
+                        <label>Profile Image</label>
+                        <input type="file" id="customFile" style="float: right;"
+                            (change)="fileUpload($event.target.files)">
+
+                        <div>
+
+
+                            <img *ngIf="img" class="imageSize" src="data:image/jpeg;base64,{{img}}" alt="img" />
+                        </div>
 
 
                     </li>
@@ -55,20 +128,22 @@
 
             </mat-card-content>
             <mat-card-actions>
-                <div *ngIf="option; then thenblock1; else elseblock1"></div>
-                <ng-template #thenblock1>
-                    <button mat-stroked-button [disabled]="!registerForm.valid" class="addBtn" (click)="create()">Create
-                        User</button>
-                    <button mat-stroked-button class="cancel" (click)="cancel()">Cancel</button>
-                </ng-template>
 
 
-                <ng-template #elseblock1>
-                    <button mat-stroked-button [disabled]="!registerForm.valid" class="addBtn" (click)="edit()">
-                        Update</button>
-                    <button mat-stroked-button class="cancel" (click)="cancel()">Cancel</button>
-                </ng-template>
+                <ul type="none">
+                    <li>
 
+
+
+
+                        <button mat-stroked-button [disabled]="!registerForm.valid"
+                            [ngStyle]="{'cursor':(!registerForm.valid?'not-allowed':'pointer')}" class="addBtn"
+                            (click)="edit()">
+                            Update</button>
+                        <button mat-stroked-button class="cancel" (click)="cancel()">Cancel</button>
+
+                    </li>
+                </ul>
             </mat-card-actions>
 
         </form>

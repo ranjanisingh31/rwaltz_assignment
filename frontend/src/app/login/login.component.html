@@ -4,7 +4,8 @@
         <form [formGroup]="loginForm">
             <mat-card-header>
                 <mat-card-title>
-                    <span class="mat-display-1">Login</span></mat-card-title>
+                    <span class="mat-display-1">Login</span>
+                </mat-card-title>
 
             </mat-card-header>
             <mat-card-content>
@@ -15,15 +16,31 @@
                             <mat-label>Email Id</mat-label>
                             <input type="email" matInput formControlName="email" />
                         </mat-form-field>
+                        <div *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty ||
+                        loginForm.controls.email.touched)" class="alert alert-danger"
+                            style="font-size: 12px;padding: .5rem 1.25rem;margin-bottom: 0px;">
+                            <div *ngIf="loginForm.controls.email.errors?.required">
+                                Email is required.
+                            </div>
+                            <div *ngIf="loginForm.controls.email.invalid">
+                                Email is invalid.
+                            </div>
+                        </div>
                     </li>
                     <li>
                         <mat-form-field class="form" appearance="outline">
                             <mat-label>Password</mat-label>
                             <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" />
                             <mat-icon (click)="hide = !hide" matSuffix>{{
-                                      hide ? "visibility_off" : "visibility"
-                                    }}</mat-icon>
+                                hide ? "visibility_off" : "visibility"
+                                }}</mat-icon>
                         </mat-form-field>
+                        <div *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"
+                            class="alert alert-danger" style="font-size: 12px;padding: .5rem 1.25rem;">
+                            <div *ngIf="loginForm.controls.password.errors?.required">
+                                Password is required.
+                            </div>
+                        </div>
 
                     </li>
                 </ul>
@@ -33,9 +50,11 @@
 
                 <ul type="none">
                     <li>
-                        <button mat-stroked-button [disabled]="!loginForm.valid" class="loginBtn" (click)="login()">
+                        <button mat-stroked-button [disabled]="!loginForm.valid" class="loginBtn" (click)="login()"
+                            [ngStyle]="{'cursor':(!loginForm.valid?'not-allowed':'pointer')}">
                             Sign-in
-                        </button></li>
+                        </button>
+                    </li>
                     <li>
                         <small class="link">Are you a new user? &nbsp;<a style="cursor: pointer; color: darkred;"
                                 (click)="openRegister()">Register</a></small>

@@ -6,6 +6,10 @@ const registerSchema = new Schema({
     password: String,
     phone: Number,
     created_by: String,
+    img_url: String,
+    address: String,
+    hobbies: String,
+    gender: String,
     createdAt: {
         type: Date,
         default: Date.now()
